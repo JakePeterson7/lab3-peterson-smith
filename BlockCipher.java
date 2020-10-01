@@ -1,7 +1,9 @@
+import java.util.Arrays;
+
 public class BlockCipher {
 
     public static void main(String[] args) {
-        String keyAlpha = "abcd?";
+        String keyAlpha = "a5Z#\t";
         String plainText = "Hello";
 
         int[] keyBin = new int[35];
@@ -54,15 +56,15 @@ public class BlockCipher {
 
             // need to add padding if bitArray.length is < 7
             if (bitArray.length < 7) {
-                String[] temp = bitArray; // temo holds original values
+                String[] temp = bitArray; // temp holds original values
                 bitArray = new String[7]; // bitArray is made to be bigger (from 6 to 7)
-
-                for (int p = 0; p < bitArray.length; p++) {
-                    if (p == 0) {
-                        bitArray[0] = "0";
-                    } else {
-                        bitArray[p] = temp[p - 1];
-                    }
+                for (int j = 0; j < (bitArray.length - temp.length);j++){
+                    bitArray[j] = "0";
+                }
+                int n = 0;
+                for (int p = (bitArray.length - temp.length); p < bitArray.length; p++) {
+                    bitArray[p] = temp[n];
+                    n++;
                 }
             }
 
