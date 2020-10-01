@@ -23,7 +23,22 @@ public class driver {
             char c = string.charAt(i);            // get a char from the String.
             String binString = Integer.toBinaryString(c); // bin holds the binary value of the first char as a string.
             String[] bitArray = binString.split("");      // split binString into a string array.
+            System.out.println("The length of "+i+" is: "+bitArray.length);
             //printStringArray(bitArray);
+
+            //need to add padding if bitArray.length is < 7
+            if(bitArray.length<7){
+                String[] temp = bitArray;
+                bitArray = new String[7];
+
+                for(int p=0; p<bitArray.length; p++){
+                    if (p==0) {
+                        bitArray[0] = "0";
+                    } else {
+                        bitArray[p] = temp[p-1];
+                    }
+                }
+            }
             
             // add values to the array.
             for(int k=0; k<bitArray.length; k++){
