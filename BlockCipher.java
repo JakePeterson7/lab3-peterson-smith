@@ -2,9 +2,11 @@ import java.util.Arrays;
 
 public class BlockCipher {
 
-    public static void main(String[] args) {
-        String keyAlpha = "a5Z#\t";
-        String plainText = "Hello";
+    public static void Encrypt(String text, String key) {
+        String keyAlpha = key;
+        String plainText = text;
+        System.out.println(keyAlpha);
+        System.out.println(plainText);
 
         int[] keyBin = new int[35];
         int[] plainBin = new int[35];
