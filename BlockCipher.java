@@ -8,11 +8,11 @@ public class BlockCipher {
         System.out.println(keyAlpha);
         System.out.println(plainText);
 
-        int[] keyBin = new int[35];
-        int[] plainBin = new int[35];
+        int[] keyBin = stringToBinaryArray(keyAlpha);
+        int[] plainBin = stringToBinaryArray(plainText);
 
-        stringToBinaryArray(keyAlpha, keyBin);
-        stringToBinaryArray(plainText, plainBin);
+        // stringToBinaryArray(keyAlpha, keyBin);
+        // stringToBinaryArray(plainText, plainBin);
 
         // perform circular shift of three bits on the plaintext (plainBin).
 
@@ -46,7 +46,9 @@ public class BlockCipher {
      * This method takes a String and an int[]. It turns the string into a binary
      * string that is added into the int[]
      */
-    private static void stringToBinaryArray(String string, int[] key) {
+    public static int[] stringToBinaryArray(String string) {
+
+        int[] result = new int[35];
 
         int counter = 0; // used to keep track of position in the key array.
         for (int i = 0; i < string.length(); i++) {
@@ -72,10 +74,11 @@ public class BlockCipher {
 
             // add values to the array.
             for (int k = 0; k < bitArray.length; k++) {
-                key[counter] = Integer.parseInt(bitArray[k]);
+                result[counter] = Integer.parseInt(bitArray[k]);
                 counter++;
             }
         }
+        return result;
     }
 
     private static void printIntArray(int[] ar) {
