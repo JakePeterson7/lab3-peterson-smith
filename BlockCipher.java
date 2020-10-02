@@ -105,7 +105,7 @@ public class BlockCipher {
             return 1;
     }
 
-    private static void printArray(int[] key) {
+    public static void printArray(int[] key) {
         for (int b : key) {
             System.out.print(b + " ");
         }
