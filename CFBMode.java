@@ -15,7 +15,14 @@ public class CFBMode {
     String keyAlpha = "a5Z#\t";
     String plainText = "Hello";
 
+    int[] keyBin = BlockCipher.stringToBinaryArray(keyAlpha);
+    int[] plainBin = BlockCipher.stringToBinaryArray(plainText);
+
     BlockCipher.printArray(IV);
+
+    int[] cipherText = initialRun(IV, keyBin, plainBin);
+    BlockCipher.printArray(cipherText);
+
 
     }// end main
 
@@ -30,6 +37,13 @@ public class CFBMode {
         }
 
         return result;
+    }
+    
+    private static int[] initialRun(int[] IV, int[] keyBin, int[] plainBin ){
+        int[] cipherText = new int[35];
+        cipherText = BlockCipher.addBinaryArrays(plainBin, BlockCipher.Encrypt(IV, keyBin)); 
+
+        return cipherText;
     }
 
 }
