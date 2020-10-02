@@ -46,4 +46,11 @@ public class CFBMode {
         return cipherText;
     }
 
+    private static int[] cfbRun(int[] keyBin, int[] previousCipherText, int[] thisPlainText){
+        int[] cipherText = new int[35];
+        cipherText = BlockCipher.addBinaryArrays(thisPlainText, BlockCipher.Encrypt(previousCipherText, keyBin));
+
+        return cipherText;
+    }
+
 }
