@@ -2,14 +2,14 @@ import java.util.Arrays;
 
 public class BlockCipher {
 
-    public static void Encrypt(String text, String key) {
-        String keyAlpha = key;
-        String plainText = text;
-        System.out.println(keyAlpha);
-        System.out.println(plainText);
+    public static int[] Encrypt(int[] text, int[] key) {
+        // String keyAlpha = key;
+        // String plainText = text;
+        // System.out.println(keyAlpha);
+        // System.out.println(plainText);
 
-        int[] keyBin = stringToBinaryArray(keyAlpha);
-        int[] plainBin = stringToBinaryArray(plainText);
+        int[] keyBin = key;
+        int[] plainBin = text;
 
         // stringToBinaryArray(keyAlpha, keyBin);
         // stringToBinaryArray(plainText, plainBin);
@@ -25,8 +25,10 @@ public class BlockCipher {
         // printIntArray(plainBin);
         circleRotateThree(plainBin);
         // add keyBin to plainBin (bitwise)
-        int[] result = addKey(plainBin, keyBin);
-        printIntArray(result);
+        int[] result = addBinaryArrays(plainBin, keyBin);
+       // printIntArray(result);
+
+       return result;
 
     }// end main
 
@@ -93,7 +95,7 @@ public class BlockCipher {
         System.out.println();
     }
 
-    public static int[] addKey(int[] plainBin, int[] keyBin){
+    public static int[] addBinaryArrays(int[] plainBin, int[] keyBin){
         int[] result = new int[35];
         for(int i = 0; i<35; i++){
             result[i] = addBits(plainBin[i], keyBin[i]);
