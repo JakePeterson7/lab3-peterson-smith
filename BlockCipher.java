@@ -57,7 +57,7 @@ public class BlockCipher {
             char c = string.charAt(i); // get a char from the String.
             String binString = Integer.toBinaryString(c); // bin holds the binary value of the first char as a string.
             String[] bitArray = binString.split(""); // split binString into a string array.
-            System.out.println("The length of " + i + " is: " + bitArray.length);
+           // System.out.println("The length of " + i + " is: " + bitArray.length);
             // printStringArray(bitArray);
 
             // need to add padding if bitArray.length is < 7
