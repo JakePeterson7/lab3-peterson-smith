@@ -9,7 +9,10 @@ public class Run {
         System.out.println("Please input the key");
         String key = myObj.nextLine();
 
-        BlockCipher.Encrypt(text, key);
+        int[] textBin = BlockCipher.stringToBinaryArray(text);
+        int[] keyBin = BlockCipher.stringToBinaryArray(key);
+
+        BlockCipher.Encrypt(textBin, keyBin);
         myObj.close();
     }
 }
