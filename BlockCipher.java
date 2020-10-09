@@ -50,7 +50,7 @@ public class BlockCipher {
      */
     public static int[] stringToBinaryArray(String string) {
 
-        int[] result = new int[35];
+        int[] result = new int[string.length() * 7];
 
         int counter = 0; // used to keep track of position in the key array.
         for (int i = 0; i < string.length(); i++) {
