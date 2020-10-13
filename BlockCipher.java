@@ -11,10 +11,10 @@ class BlockCipher {
     static int[] Decrypt(int[] encryption, int[] keyBin) {
 
         int[] result = addBinaryArrays(encryption, keyBin);
-
+ 
         reverseCircleRotate(result);
 
-        return result;// this gives correct result, I check by hand.
+        return result;// this gives correct result, I checked by hand.
     }
 
     private static void circleRotateThree(int[] ar) { //Encrypting helper method
