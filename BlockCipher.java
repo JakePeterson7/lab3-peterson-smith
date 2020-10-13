@@ -1,4 +1,4 @@
-class BlockCipher {
+public class BlockCipher {
 
     static int[] Encrypt(int[] text, int[] key) {
         circleRotateThree(text);// this has been checked to work
@@ -11,7 +11,7 @@ class BlockCipher {
     static int[] Decrypt(int[] encryption, int[] keyBin) {
 
         int[] result = addBinaryArrays(encryption, keyBin);
- 
+
         reverseCircleRotate(result);
 
         return result;// this gives correct result, I checked by hand.
@@ -36,11 +36,72 @@ class BlockCipher {
         }
     }
 
+    //    private static void printIntArray(int[] ar) { //Not being used so commented out
+//        int counter = 1;
+//        for (int b : ar) {
+//            System.out.print(Integer.toBinaryString(b));
+//            if (counter % 7 == 0) {
+//                System.out.print(" ");
+//            }
+//            counter++;
+//        }
+//        System.out.println();
+//    }
+
+    public static int[] addBinaryArrays(int[] plainBin, int[] keyBin) { //Method using XOR method and storing to var.
+        int[] result = new int[35];
+        for (int i = 0; i < 35; i++) {
+            result[i] = addBits(plainBin[i], keyBin[i]);
+        }
+        return result;
+    }
+
+    private static int addBits(int a, int b) { //XOR helper method
+        if (a == b) {
+            return 0;
+        } else
+            return 1;
+    }
+
+    public static void printArray(int[] key) {
+        for (int b : key) {
+            System.out.print(b + " ");
+        }
+        System.out.println();
+    }
+
+    // Testing encryption and decryption.
+    public static void main(String[] args) {
+        String keyAlpha = "a5Z#xa5z#x";
+        String plainText = "HelloHello";
+        int[] keyBin = stringToBinaryArray(keyAlpha);
+        int[] plainBin = stringToBinaryArray(plainText);
+
+        System.out.println("plainBin: ");
+        printArray(plainBin);
+
+        System.out.println("keyBin: ");
+        printArray(keyBin);
+
+        System.out.println("add arrays: ");
+        printArray(addBinaryArrays(plainBin, keyBin));
+
+        int[] encryption = Encrypt(plainBin, keyBin);
+
+        System.out.println("encryption: ");
+        printArray(encryption);
+
+        int[] decryption = Decrypt(encryption, keyBin);
+
+        System.out.println("decryption: ");
+        printArray(decryption);
+    }
+
     /**
      * This method takes a String and an int[]. It turns the string into a binary
      * string that is added into the int[]. It also pads zeros.
      */
-    public static int[] stringToBinaryArray(String string) {
+    static int[] stringToBinaryArray(String string) {
 
         int[] result = new int[string.length() * 7];
 
@@ -86,67 +147,4 @@ class BlockCipher {
         }
         return result.toString();
     }
-
-//    private static void printIntArray(int[] ar) { //Not being used so commented out
-//        int counter = 1;
-//        for (int b : ar) {
-//            System.out.print(Integer.toBinaryString(b));
-//            if (counter % 7 == 0) {
-//                System.out.print(" ");
-//            }
-//            counter++;
-//        }
-//        System.out.println();
-//    }
-
-    public static int[] addBinaryArrays(int[] plainBin, int[] keyBin) { //Method using XOR method and storing to var.
-
-        int[] result = new int[plainBin.length];
-        for (int i = 0; i < plainBin.length; i++) {
-            result[i] = addBits(plainBin[i], keyBin[i]);
-        }
-        return result;
-    }
-
-    private static int addBits(int a, int b) { //XOR helper method
-        if (a == b) {
-            return 0;
-        } else
-            return 1;
-    }
-
-    public static void printArray(int[] key) {
-        for (int b : key) {
-            System.out.print(b + " ");
-        }
-        System.out.println();
-    }
-
-    // Testing encryption and decryption.
-    public static void main(String[] args) {
-        String keyAlpha = "a5Z#xa5z#x";
-        String plainText = "HelloHello";
-        int[] keyBin = BlockCipher.stringToBinaryArray(keyAlpha);
-        int[] plainBin = BlockCipher.stringToBinaryArray(plainText);
-
-        System.out.println("plainBin: ");
-        BlockCipher.printArray(plainBin);
-
-        System.out.println("keyBin: ");
-        BlockCipher.printArray(keyBin);
-
-        System.out.println("add arrays: ");
-        BlockCipher.printArray(addBinaryArrays(plainBin, keyBin));
-
-        int[] encryption = Encrypt(plainBin, keyBin);
-
-        System.out.println("encryption: ");
-        BlockCipher.printArray(encryption);
-
-        int[] decryption = Decrypt(encryption, keyBin);
-
-        System.out.println("decryption: ");
-        BlockCipher.printArray(decryption);
-    }
-
 }

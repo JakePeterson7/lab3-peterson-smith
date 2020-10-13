@@ -9,13 +9,13 @@ class CFBMode { //not yet working.
 
         // if (crypt == 0) {
         //     // IV = generateIV();
-        //     IV = 
+        //     IV =
         // } else {
         //     IV = BlockCipher.stringToBinaryArray(iv);
         //}
         // System.out.println("IV: ");
         // BlockCipher.printArray(IV);
- 
+
         int[] keyBin = BlockCipher.stringToBinaryArray(key);
         int[] textBin = BlockCipher.stringToBinaryArray(text);
 
@@ -27,9 +27,9 @@ class CFBMode { //not yet working.
         int[] cipherText = BlockCipher.stringToBinaryArray(text);
         int cipherTextCounter = 0;// hold the index to add the next bit into cipherText[]
 
-        if (crypt == 0) {                
+        if (crypt == 0) {
             Encrypt(IV, keyBin, textBin, cipherText, cipherTextCounter);
-        } else {                
+        } else {
            cipherText =  Decrypt(IV, text, keyBin, cipherText);
         }
         return cipherText;
@@ -59,8 +59,8 @@ class CFBMode { //not yet working.
         }
         System.out.println("Completed decryption: ");
 
+        System.out.println("Decrypted Plain Text: This doesn't work...LOL ");
         BlockCipher.printArray(plainBin);
-
         return plainBin;
     }
 
@@ -148,7 +148,6 @@ class CFBMode { //not yet working.
     }
 
     private static int[] initialEncryptionRun(int[] IV, int[] keyBin, int[] plainBin) {
-
         int[] cipherText;
         int[] blockEncryption = BlockCipher.Encrypt(IV, keyBin);
         cipherText = BlockCipher.addBinaryArrays(plainBin, blockEncryption);
@@ -168,15 +167,15 @@ class CFBMode { //not yet working.
         String key = "yikes";
         String IV = "abcde";
 
-        
+
         int[] encryption = CFB(key, text, 0, IV);
         System.out.println("encryption: "+ BlockCipher.BinaryArrayToString(encryption));
 
         int[] decryption = CFB(key, BlockCipher.BinaryArrayToString(encryption), 1, IV);
         System.out.println("decryption: " + BlockCipher.BinaryArrayToString(decryption));
- 
 
-        
+
+
     }
 
 }

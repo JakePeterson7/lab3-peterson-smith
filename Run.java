@@ -29,7 +29,7 @@ class Run {
         myObj.close();
     }
 
-    private static void modeSelect(int mode, String key, String text, int crypt, String IV) {
+    static void modeSelect(int mode, String key, String text, int crypt, String IV) {
         if (mode == 0) {
             result = ECBMode.ECB(key, text, crypt);
         }

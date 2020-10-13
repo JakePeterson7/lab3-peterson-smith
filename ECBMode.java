@@ -23,7 +23,7 @@ class ECBMode {
             temp = BlockCipher.Decrypt(tempBin, keyBin);
             System.arraycopy(temp, 0, cipherText, (i * 35), temp.length);
         }
-        if (l % 35 != 0) {
+        if (l % 35 != 0) { //Handle overflow
             tempBin = copyOfRange(plainBin, (l - l % 35), l);
             temp = BlockCipher.Decrypt(tempBin, keyBin);
             System.arraycopy(temp, 0, cipherText, (l - l % 35), temp.length);
@@ -40,7 +40,7 @@ class ECBMode {
             temp = BlockCipher.Encrypt(tempBin, keyBin);
             System.arraycopy(temp, 0, cipherText, (i * 35), temp.length);
         }
-        if (l % 35 != 0) {
+        if (l % 35 != 0) { //Handle overflow
             tempBin = copyOfRange(plainBin, (l - l % 35), l);
             temp = BlockCipher.Encrypt(tempBin, keyBin);
             System.arraycopy(temp, 0, cipherText, (l - l % 35), temp.length);
@@ -48,8 +48,8 @@ class ECBMode {
     }
 
     public static void main(String[] args) { //Test encrypt and decrypt
-        String text = "hellohellohell";
-        String key = "yikesyikesyike";
+        String text = "hellohello";
+        String key = "yikesyikes";
         String result = BlockCipher.BinaryArrayToString(ECB(key, text, 0));
         System.out.println(result);
         String result2 = BlockCipher.BinaryArrayToString(ECB(key, result, 1));

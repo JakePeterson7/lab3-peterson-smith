@@ -52,8 +52,8 @@ class CBCMode {
     }
 
     public static void main(String[] args) { //Test encrypt and decrypt
-        String text = "yikesyikesyik";
-        String key = "hellohellohel";
+        String text = "yikesyikes";
+        String key = "hellohello";
         String IV = "arere";
         CBCMode CBC = new CBCMode();
         String result = BlockCipher.BinaryArrayToString(CBC.cipher(key, text, 0, IV));
