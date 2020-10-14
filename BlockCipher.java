@@ -136,7 +136,7 @@ public class BlockCipher {
         return result;
     }
 
-    public static String BinaryArrayToString(int[] arr) {
+    public static String binaryArrayConvertToASCII(int[] arr) {
         String result = "";
         char nextChar;
 //        System.out.println("Array length: " + arr.length);
@@ -152,10 +152,18 @@ public class BlockCipher {
         return result;
     }
 
-    public static int[] readBinaryString(String str) {
+    public static int[] binaryStringToBinaryArray(String str) {
         int[] result = new int[str.length()];
         for(int i = 0; i < str.length(); i++){
             result[i] = Integer.parseInt(Character.toString(str.charAt(i)));
+        }
+        return result;
+    }
+
+    public static String binaryArraytoBinaryString(int[] arr) {
+        String result = "";
+        for(int i = 0; i < arr.length; i++){
+            result = result + arr[i];
         }
         return result;
     }

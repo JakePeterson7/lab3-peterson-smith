@@ -5,21 +5,20 @@ import static java.util.Arrays.copyOfRange;
 
 class CBCMode {
     private static int[] XORtext =new int[35];
-    private static int cryptNum;
 
-    public int[] cipher(int[] key, String text, int crypt, int[] IV) {
-        int[] keyBin = key;
-        int[] plainBin = BlockCipher.readBinaryString(text);
-        System.out.println(plainBin.length);
-        BlockCipher.printArray(plainBin);
+    int[] cipher(int[] key, String text, int crypt, int[] IV) {
+        int[] plainBin;
+        if(crypt == 0) {
+            plainBin = BlockCipher.stringToBinaryArray(text);
+        }else{
+            plainBin = BlockCipher.binaryStringToBinaryArray(text);
+        }
         int[] cipherText = new int[plainBin.length];
-        System.out.println("Size of cipherText: " + cipherText.length);
-        cryptNum = crypt;
-//        System.out.println("IV: " + BlockCipher.BinaryArrayToString(IV));
-        if (cryptNum == 1) {
-            decrypt(keyBin, plainBin, IV, cipherText);
+        //        System.out.println("IV: " + BlockCipher.BinaryArrayToString(IV));
+        if (crypt == 1) {
+            decrypt(key, plainBin, IV, cipherText);
         } else {
-            encrypt(keyBin, plainBin, IV, cipherText);
+            encrypt(key, plainBin, IV, cipherText);
         }
         return cipherText;
     }
@@ -67,8 +66,6 @@ class CBCMode {
                 System.arraycopy(newInput, 0, cipherText, (i * 35), 35); //Copy result of decrypt to resulting plaintext
                 System.arraycopy(tempBin, 0, XORtext, 0, 35); //Copy ciphertext from this block for next block
             }
-            BlockCipher.printArray(cipherText);
-            System.out.println(BlockCipher.BinaryArrayToString(cipherText));
 //            if (l % 35 != 0) {
 //                tempBin = copyOfRange(plainBin, (l - l % 35), l);
 //                temp = BlockCipher.Decrypt(tempBin, keyBin);
@@ -78,7 +75,6 @@ class CBCMode {
     }
 
     public static void initialDecryption(int[] keyBin, int[] plainBin, int[] IV, int[] cipherText) {
-        System.out.println("Reached initial decryption");
         int[] temp; //Holds encrypted block
         int[] tempBin; //Holds plaintext to be encrypted
         System.arraycopy(plainBin, 0, XORtext, 0, 35); //Copy ciphertext block for next block
@@ -95,7 +91,7 @@ class CBCMode {
         CBCMode CBC = new CBCMode();
 //        String result = BlockCipher.BinaryArrayToString(CBC.cipher(key, text, 0, IV));
 //        System.out.println("Result: " + result);
-        String result2 = BlockCipher.BinaryArrayToString(CBC.cipher(key, text, 1, IV));
+        String result2 = BlockCipher.binaryArrayConvertToASCII(CBC.cipher(key, text, 1, IV));
         System.out.println("Result: " + result2);
         FileWriter myWriter = new FileWriter("filename.txt");
         myWriter.write(result2);

@@ -5,7 +5,12 @@ class CFBMode { //not yet working.
 
     public static int[] CFB(int[] key, String text, int crypt, int[] IV) {
         int[] keyBin = key;
-        int[] textBin = BlockCipher.stringToBinaryArray(text);
+        int[] textBin;
+        if(crypt == 0) {
+            textBin = BlockCipher.stringToBinaryArray(text);
+        }else{
+            textBin = BlockCipher.binaryStringToBinaryArray(text);
+        }
         int[] cipherText = BlockCipher.stringToBinaryArray(text);
         int cipherTextCounter = 0;// hold the index to add the next bit into cipherText[]
         if (crypt == 0) {
@@ -41,7 +46,6 @@ class CFBMode { //not yet working.
         System.out.println("Completed decryption: ");
 
         System.out.println("Decrypted Plain Text: This doesn't work...LOL ");
-        BlockCipher.printArray(plainBin);
         return plainBin;
     }
 
@@ -148,10 +152,10 @@ class CFBMode { //not yet working.
         int[] IV = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
         int[] encryption = CFB(key, text, 0, IV);
-        System.out.println("encryption: "+ BlockCipher.BinaryArrayToString(encryption));
+        System.out.println("encryption: "+ BlockCipher.binaryArrayConvertToASCII(encryption));
 
-        int[] decryption = CFB(key, BlockCipher.BinaryArrayToString(encryption), 1, IV);
-        System.out.println("decryption: " + BlockCipher.BinaryArrayToString(decryption));
+        int[] decryption = CFB(key, BlockCipher.binaryArrayConvertToASCII(encryption), 1, IV);
+        System.out.println("decryption: " + BlockCipher.binaryArrayConvertToASCII(decryption));
 
 
 
