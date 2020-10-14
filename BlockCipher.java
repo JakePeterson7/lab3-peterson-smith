@@ -137,14 +137,26 @@ public class BlockCipher {
     }
 
     public static String BinaryArrayToString(int[] arr) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < arr.length / 7; i++) {
-            StringBuilder s = new StringBuilder();
-            for (int j = 0; j < 7; j++) {
-                s.append(arr[(i * 7) + j]);
+        String result = "";
+        char nextChar;
+//        System.out.println("Array length: " + arr.length);
+        for(int j = 0; j < arr.length/7; j++) {
+            String s = "";
+            for (int i = 0; i < 7; i++) {
+                s = s + arr[((j * 7) + i)];
             }
-            result.append((char) Integer.parseInt(s.toString(), 2));
+            nextChar = (char)Integer.parseInt(s.substring(0,7),2);
+            result += nextChar;
+//            System.out.println(result);
         }
-        return result.toString();
+        return result;
+    }
+
+    public static int[] readBinaryString(String str) {
+        int[] result = new int[str.length()];
+        for(int i = 0; i < str.length(); i++){
+            result[i] = Integer.parseInt(Character.toString(str.charAt(i)));
+        }
+        return result;
     }
 }

@@ -1,10 +1,12 @@
+import java.util.Arrays;
+
 import static java.util.Arrays.copyOfRange;
 
 class OFBMode {
     private static int[] text =new int[35];
 
-    public static int[] cipher(String key, String text, int[] IV) {
-        int[] keyBin = BlockCipher.stringToBinaryArray(key);
+    public static int[] cipher(int[] key, String text, int[] IV) {
+        int[] keyBin = key;
         int[] plainBin = BlockCipher.stringToBinaryArray(text);
         int[] cipherText = new int[plainBin.length];
 //      System.out.println("IV: " + BlockCipher.BinaryArrayToString(IV));
@@ -44,7 +46,7 @@ class OFBMode {
 
     public static void main(String[] args) { //Test encrypt and decrypt
         String text = "yikesyikesyikes";
-        String key = "hellohellohello";
+        int[] key = BlockCipher.stringToBinaryArray("hellohellohello");
         int[] IV = new int[]{};
         String result = BlockCipher.BinaryArrayToString(OFBMode.cipher(key, text, IV));
         System.out.println("Result: " + result);

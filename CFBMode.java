@@ -3,8 +3,8 @@ import java.util.Random;
 
 class CFBMode { //not yet working.
 
-    public static int[] CFB(String key, String text, int crypt, int[] IV) {
-        int[] keyBin = BlockCipher.stringToBinaryArray(key);
+    public static int[] CFB(int[] key, String text, int crypt, int[] IV) {
+        int[] keyBin = key;
         int[] textBin = BlockCipher.stringToBinaryArray(text);
         int[] cipherText = BlockCipher.stringToBinaryArray(text);
         int cipherTextCounter = 0;// hold the index to add the next bit into cipherText[]
@@ -144,7 +144,7 @@ class CFBMode { //not yet working.
 
     public static void main(String[] args) {
         String text = "hellohello";
-        String key = "yikes";
+        int[] key = BlockCipher.stringToBinaryArray("yikes");
         int[] IV = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
         int[] encryption = CFB(key, text, 0, IV);
