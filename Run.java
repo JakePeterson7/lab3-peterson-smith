@@ -9,7 +9,7 @@ class Run {
         int crypt = Integer.parseInt(myObj.nextLine());
 
         System.out.println("Please input the IV");
-        String IV = myObj.nextLine();
+        int[] IV = BlockCipher.stringToBinaryArray(myObj.nextLine());
 
         System.out.println("Please input the plaintext");
         String text = myObj.nextLine();
@@ -17,7 +17,10 @@ class Run {
         System.out.println("Please input the key");
         String key = myObj.nextLine();
 
-        for (int i = 0; i < 3; i++) {
+        System.out.println("How many modes would you like to go through?(int)");
+        int times = Integer.parseInt(myObj.nextLine());
+
+        for (int i = 0; i < times; i++) {
             System.out.println("Please select the mode: 0 ECB, 1 CBC, 2 CFB,");
             int mode = Integer.parseInt(myObj.nextLine());
             System.out.println("Processing. . .");
@@ -29,7 +32,7 @@ class Run {
         myObj.close();
     }
 
-    static void modeSelect(int mode, String key, String text, int crypt, String IV) {
+    private static void modeSelect(int mode, String key, String text, int crypt, int[] IV) {
         if (mode == 0) {
             result = ECBMode.ECB(key, text, crypt);
         }
@@ -39,6 +42,14 @@ class Run {
         }
         if (mode == 2) {
             result = CFBMode.CFB(key, text, crypt, IV);
+        }
+        if (mode == 3) {
+            result = OFBMode.cipher(key, text, IV);
+        }
+        if (mode == 4) {
+            result = CTRMode.cipher(key, text, IV);
+        }else{
+            System.out.println("Error: Please input a number from 0 to 4 for mode.");
         }
     }
 }

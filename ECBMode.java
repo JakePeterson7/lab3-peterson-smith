@@ -23,11 +23,11 @@ class ECBMode {
             temp = BlockCipher.Decrypt(tempBin, keyBin);
             System.arraycopy(temp, 0, cipherText, (i * 35), temp.length);
         }
-        if (l % 35 != 0) { //Handle overflow
-            tempBin = copyOfRange(plainBin, (l - l % 35), l);
-            temp = BlockCipher.Decrypt(tempBin, keyBin);
-            System.arraycopy(temp, 0, cipherText, (l - l % 35), temp.length);
-        }
+//        if (l % 35 != 0) { //Handle overflow
+//            tempBin = copyOfRange(plainBin, (l - l % 35), l);
+//            temp = BlockCipher.Decrypt(tempBin, keyBin);
+//            System.arraycopy(temp, 0, cipherText, (l - l % 35), temp.length);
+//        }
     }
 
     private static void encrypt(int[] keyBin, int[] plainBin, int[] cipherText) {
@@ -40,11 +40,11 @@ class ECBMode {
             temp = BlockCipher.Encrypt(tempBin, keyBin);
             System.arraycopy(temp, 0, cipherText, (i * 35), temp.length);
         }
-        if (l % 35 != 0) { //Handle overflow
-            tempBin = copyOfRange(plainBin, (l - l % 35), l);
-            temp = BlockCipher.Encrypt(tempBin, keyBin);
-            System.arraycopy(temp, 0, cipherText, (l - l % 35), temp.length);
-        }
+//        if (l % 35 != 0) { //Handle overflow
+//            tempBin = copyOfRange(plainBin, (l - l % 35), l);
+//            temp = BlockCipher.Encrypt(tempBin, keyBin);
+//            System.arraycopy(temp, 0, cipherText, (l - l % 35), temp.length);
+//        }
     }
 
     public static void main(String[] args) { //Test encrypt and decrypt

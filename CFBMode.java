@@ -3,37 +3,18 @@ import java.util.Random;
 
 class CFBMode { //not yet working.
 
-    public static int[] CFB(String key, String text, int crypt, String iv) {
-        // initialization vector
-        int[] IV = BlockCipher.stringToBinaryArray(iv);
-
-        // if (crypt == 0) {
-        //     // IV = generateIV();
-        //     IV =
-        // } else {
-        //     IV = BlockCipher.stringToBinaryArray(iv);
-        //}
-        // System.out.println("IV: ");
-        // BlockCipher.printArray(IV);
-
+    public static int[] CFB(String key, String text, int crypt, int[] IV) {
         int[] keyBin = BlockCipher.stringToBinaryArray(key);
         int[] textBin = BlockCipher.stringToBinaryArray(text);
-
-        // System.out.println("text: ");
-        // BlockCipher.printArray(textBin);
-        // System.out.println("keyBin: ");
-        // BlockCipher.printArray(keyBin);
-
         int[] cipherText = BlockCipher.stringToBinaryArray(text);
         int cipherTextCounter = 0;// hold the index to add the next bit into cipherText[]
-
         if (crypt == 0) {
             Encrypt(IV, keyBin, textBin, cipherText, cipherTextCounter);
         } else {
            cipherText =  Decrypt(IV, text, keyBin, cipherText);
         }
         return cipherText;
-    }// end CFB
+    }
 
     private static int[] Decrypt(int[] IV, String plainText, int[] keyBin, int[] cipherText) {
         int[] plainBin = new int[plainText.length() * 7];
@@ -64,7 +45,7 @@ class CFBMode { //not yet working.
         return plainBin;
     }
 
-    private static int[] Encrypt(int[] IV, int[] keyBin, int[] plainBin, int[] cipherText, int cipherTextCounter) {
+    private static void Encrypt(int[] IV, int[] keyBin, int[] plainBin, int[] cipherText, int cipherTextCounter) {
         int[] cipherTextToAdd;
         int[] previousCipherText = new int[35];
         for (int i = 0; i < plainBin.length / 35; i++) {// walk through the array by block
@@ -81,7 +62,6 @@ class CFBMode { //not yet working.
         System.out.println("Completed Cipher Text: ");
 
         BlockCipher.printArray(cipherText);
-        return cipherText;
     }
 
 
@@ -163,10 +143,9 @@ class CFBMode { //not yet working.
     }
 
     public static void main(String[] args) {
-        String text = "hello";
+        String text = "hellohello";
         String key = "yikes";
-        String IV = "abcde";
-
+        int[] IV = new int[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
         int[] encryption = CFB(key, text, 0, IV);
         System.out.println("encryption: "+ BlockCipher.BinaryArrayToString(encryption));
