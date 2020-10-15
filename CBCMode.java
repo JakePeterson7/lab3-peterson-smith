@@ -6,7 +6,7 @@ import static java.util.Arrays.copyOfRange;
 class CBCMode {
     private static int[] XORtext =new int[35];
 
-    int[] cipher(int[] key, String text, int crypt, int[] IV) {
+    static int[] cipher(int[] key, String text, int crypt, int[] IV) {
         int[] plainBin;
         if(crypt == 0) {
             plainBin = BlockCipher.stringToBinaryArray(text);
@@ -97,5 +97,36 @@ class CBCMode {
         myWriter.write(result2);
         myWriter.close();
         System.out.println("Wrote to file!");
+        CBCtest();
+    }
+
+    //test for 1-bit error.
+    public static void CBCtest(){
+        // setup
+        System.out.println("\n\n\n start CBC test---------------------------------------------------------");
+        String text = "I am happy to join with you today in what will go down in history as the greatest demonstration";
+        int[] key = new int[]{1,1,0,0,1,1,0,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,0,0,1,1,1,0,0,1,1};
+        int[] IV = new int[]{0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0};
+
+        //encrpyt
+        String result = BlockCipher.binaryArrayConvertToASCII(CBCMode.cipher(key, text, 0, IV));
+        //System.out.println(result);
+        int[] encrypted = BlockCipher.stringToBinaryArray(result);
+
+        BlockCipher.printIntArray(encrypted);
+        System.out.println();
+        // 1-bit error: change bit 10 from original.
+        int[] original = BlockCipher.stringToBinaryArray(text);
+        if(original[10] == 1){
+            original[10] = 0;
+        } else{
+            original[10] = 1;
+        }
+        String augmentedText = BlockCipher.binaryArrayConvertToASCII(original);
+
+        String newResult = BlockCipher.binaryArrayConvertToASCII(CBCMode.cipher(key, augmentedText, 0, IV));
+        int[] encrypted2 = BlockCipher.stringToBinaryArray(newResult);
+        BlockCipher.printIntArray(encrypted2);
+
     }
 }

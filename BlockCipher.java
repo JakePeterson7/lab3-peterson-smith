@@ -36,17 +36,17 @@ public class BlockCipher {
         }
     }
 
-    //    private static void printIntArray(int[] ar) { //Not being used so commented out
-//        int counter = 1;
-//        for (int b : ar) {
-//            System.out.print(Integer.toBinaryString(b));
-//            if (counter % 7 == 0) {
-//                System.out.print(" ");
-//            }
-//            counter++;
-//        }
-//        System.out.println();
-//    }
+       public static void printIntArray(int[] ar) { //Not being used so commented out
+       int counter = 1;
+       for (int b : ar) {
+           System.out.print(Integer.toBinaryString(b));
+           if (counter % 7 == 0) {
+               System.out.print(" ");
+           }
+           counter++;
+       }
+       System.out.println();
+   }
 
     public static int[] addBinaryArrays(int[] plainBin, int[] keyBin) { //Method using XOR method and storing to var.
         int[] result = new int[35];

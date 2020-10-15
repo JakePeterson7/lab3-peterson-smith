@@ -1,5 +1,9 @@
 import static java.util.Arrays.copyOfRange;
 
+//import jdk.nashorn.internal.ir.Block;
+
+//import jdk.nashorn.internal.ir.Block;
+
 class OFBMode {
     private static int[] text =new int[35];
 
@@ -55,5 +59,37 @@ class OFBMode {
 //        String txt = BlockCipher.binaryArraytoBinaryString(test);
         String result2 = BlockCipher.binaryArrayConvertToASCII(OFBMode.cipher(key, text, 1, IV));
         System.out.println("Result: " + result2);
+
+        
+        OFBtest();
     }
+    //test for 1-bit error.
+    public static void OFBtest(){
+        // setup
+        System.out.println("\n\n\n start OFB test---------------------------------------------------------");
+        String text = "I am happy to join with you today in what will go down in history as the greatest demonstration";
+        int[] key = new int[]{1,1,0,0,1,1,0,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,0,0,1,1,1,0,0,1,1};
+        int[] IV = new int[]{0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0};
+
+        //encrpyt
+        String result = BlockCipher.binaryArrayConvertToASCII(OFBMode.cipher(key, text, 0, IV));
+        //System.out.println(result);
+        int[] encrypted = BlockCipher.stringToBinaryArray(result);
+
+        BlockCipher.printIntArray(encrypted);
+        // 1-bit error: change bit 10 from original.
+        int[] original = BlockCipher.stringToBinaryArray(text);
+        if(original[10] == 1){
+            original[10] = 0;
+        } else{
+            original[10] = 1;
+        }
+        String augmentedText = BlockCipher.binaryArrayConvertToASCII(original);
+
+        String newResult = BlockCipher.binaryArrayConvertToASCII(OFBMode.cipher(key, augmentedText, 0, IV));
+        int[] encrypted2 = BlockCipher.stringToBinaryArray(newResult);
+        BlockCipher.printIntArray(encrypted2);
+
+    }
+
 }

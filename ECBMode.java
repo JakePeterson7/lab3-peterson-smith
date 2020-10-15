@@ -60,5 +60,40 @@ class ECBMode {
         //        System.out.println(result);
         String result2 = BlockCipher.binaryArrayConvertToASCII(ECB(key, text, 1));
         System.out.println(result2);
+
+        ECBtest();
+
+    }
+
+    //test for 1-bit error.
+    public static void ECBtest(){
+        // setup
+        System.out.println("\n\n\n start ECB test---------------------------------------------------------");
+        String text = "I am happy to join with you today in what will go down in history as the greatest demonstration";
+        int[] key = new int[]{1,1,0,0,1,1,0,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,0,0,1,1,1,0,0,1,1};
+        int[] IV = new int[]{0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0};
+
+        //encrpyt
+        String result = BlockCipher.binaryArrayConvertToASCII(ECBMode.ECB(key, text, 0));
+        //System.out.println(result);
+        int[] encrypted = BlockCipher.stringToBinaryArray(result);
+
+        BlockCipher.printIntArray(encrypted);
+        System.out.println();
+        // 1-bit error: change bit 10 from original.
+        int[] original = BlockCipher.stringToBinaryArray(text);
+        if(original[3] == 0){
+            original[3] = 1;
+        } else{
+            original[3] = 0;
+        }
+        String augmentedText = BlockCipher.binaryArrayConvertToASCII(original);
+
+        String newResult = BlockCipher.binaryArrayConvertToASCII(ECBMode.ECB(key, augmentedText, 0));
+        //System.out.println(newResult);
+
+        int[] encrypted2 = BlockCipher.stringToBinaryArray(newResult);
+        BlockCipher.printIntArray(encrypted2);
+
     }
 }
