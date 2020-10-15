@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 class Run {
-    private static int[] result;
+    private static int[] result; //Stores result of encryption/decryption
 
     public static void main(String[] args) {
-        Scanner myObj = new Scanner(System.in);
+        Scanner myObj = new Scanner(System.in); //initialize scanner
         System.out.println("Encrypt or decrypt?(0 or 1): ");
         int crypt = Integer.parseInt(myObj.nextLine());
 
@@ -18,14 +18,14 @@ class Run {
         }else{//Encryption
             System.out.println("Please input the text in string format");
             text = myObj.nextLine();
-            text = continueForward(myObj, crypt, IV, text);
+            text = continueForward(myObj, crypt, IV, text); //I extracted some of the run method for readability and to avoid duplicated code
             int[] result = BlockCipher.stringToBinaryArray(text);
             BlockCipher.printArray(result);
         }
             myObj.close();
     }
 
-    private static String continueForward(Scanner myObj, int crypt, int[] IV, String text) {
+    private static String continueForward(Scanner myObj, int crypt, int[] IV, String text) { //Rest of needed input
         System.out.println("Please input the key in binary");
         int[] key = BlockCipher.binaryStringToBinaryArray(myObj.nextLine());
 
@@ -43,7 +43,7 @@ class Run {
         return text;
     }
 
-    private static void modeSelect(int mode, int[] key, String text, int crypt, int[] IV) {
+    private static void modeSelect(int mode, int[] key, String text, int crypt, int[] IV) { //Selects cipher mode based on input
         if (mode == 0) {
             result = ECBMode.ECB(key, text, crypt);
         }

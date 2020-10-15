@@ -1,6 +1,6 @@
 public class BlockCipher {
 
-    static int[] Encrypt(int[] text, int[] key) {
+    static int[] Encrypt(int[] text, int[] key) { //Block encryption
         circleRotateThree(text);// this has been checked to work
 
         return addBinaryArrays(text, key);
@@ -8,7 +8,7 @@ public class BlockCipher {
     }// end main
 
     // reverse the encryption
-    static int[] Decrypt(int[] encryption, int[] keyBin) {
+    static int[] Decrypt(int[] encryption, int[] keyBin) { //Block decryption
 
         int[] result = addBinaryArrays(encryption, keyBin);
 
@@ -63,7 +63,7 @@ public class BlockCipher {
             return 1;
     }
 
-    public static void printArray(int[] key) {
+    public static void printArray(int[] key) { //Prints out an array to console
         for (int b : key) {
             System.out.print(b + " ");
         }
@@ -104,7 +104,6 @@ public class BlockCipher {
     static int[] stringToBinaryArray(String string) {
 
         int[] result = new int[string.length() * 7];
-
         int counter = 0; // used to keep track of position in the key array.
         for (int i = 0; i < string.length(); i++) {
             char c = string.charAt(i); // get a char from the String.
@@ -136,6 +135,7 @@ public class BlockCipher {
         return result;
     }
 
+    //Takes a binary array ex: [0,1,0,1,1,0,1] and converts it to a string of ASCII character(s).
     public static String binaryArrayConvertToASCII(int[] arr) {
         String result = "";
         char nextChar;
@@ -152,6 +152,7 @@ public class BlockCipher {
         return result;
     }
 
+    //Takes a string of binary ex: "0011100" and turns it into an array ex: [0,0,1,1,1,0,0].
     public static int[] binaryStringToBinaryArray(String str) {
         int[] result = new int[str.length()];
         for(int i = 0; i < str.length(); i++){
@@ -160,7 +161,8 @@ public class BlockCipher {
         return result;
     }
 
-    public static String binaryArraytoBinaryString(int[] arr) {
+    //Takes a binary array ex: [0,0,1,1,1,0,0] and turns it into a string ex: "0011100"
+    public static String binaryArrayToBinaryString(int[] arr) {
         String result = "";
         for(int i = 0; i < arr.length; i++){
             result = result + arr[i];
